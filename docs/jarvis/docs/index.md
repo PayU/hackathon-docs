@@ -1,6 +1,7 @@
 # Welcome to Jarvis Docs
-
-## Intro
+<p align="center">
+  <img src="jarvis.png" width="100">
+</p>    
 
 Welcome to Jarvis documentation.  
 Jarvis is an abstraction layer, built for GPO 2023 Gen AI Hackathon.

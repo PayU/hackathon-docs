@@ -37,7 +37,7 @@ and this is the answer you will get:
 
 Now lets go over all the params we had in this http request  
 * **question** - This is the prompt that will be sent to the FM  
-* **stop_sequences** - @kobi help me  
+* **stop_sequences** - a set of chars that will stop the response from the FM like \n for new line 
 * **name** - This is the model id from the - [Bedrock supported models](./bedrock.md)  
 * **max_tokens** - The maximum tokens that will be in the answer - (1 token equal to 3/4 words)  
 * **temperature** - [Read here](https://docs.ai21.com/docs/sampling-from-language-models#%EF%B8%8F-temperature)   
@@ -56,14 +56,14 @@ curl --location 'https://api.paymentsos.com/hackathon-ai/prompt' \
 --header 'Content-Type: application/json' \
 --data '{
 "question": "Can you please tell me what is the most pouplar programing language, please provide short answer",
-"model": {
-"stop_sequences": [],
-"name": "ai21.j2-mid",
-"max_tokens": 1000,
-"temperature": 1,
-"top_k": 250,
-"top_p": 0.999
-}
+    "model": {
+        "stop_sequences": [],
+        "name": "ai21.j2-mid",
+        "max_tokens": 1000,
+        "temperature": 1,
+        "top_k": 250,
+        "top_p": 0.999
+    }
 }'
 ```
 
