@@ -13,10 +13,10 @@ When specifying the rag object, Jarvis understand as it should take the query an
 and provide them as context to the FM.
 
 in the rag object we have:  
-* return_source_documents - if this is true, the response will contain the vectors that that Jarvis found as the closest one 
+* **return_source_documents** - if this is true, the response will contain the vectors that that Jarvis found as the closest one 
 to the question and passed them as context to the model. this is useful for debugging and tuning our use of the models.  
-* search_type - need to update  
-* k - how many vectors should be retrieved from db 
+* **search_type** - see API reference for the options.
+* **k** - how many vectors should be retrieved from db.
 * collection - on which collection of documents look for the vectors - this must be same collection where doc was loaded.
 
 

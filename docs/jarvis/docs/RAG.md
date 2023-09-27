@@ -11,13 +11,19 @@ As you can see this is very limited functionality because you will have to find 
 by your self and the document size is also limited to the max tokens the FM supports.
 
 
-### RAG for the resource
 
-RAG -  Retrieval Augmented Generation  
-RAG improves upon the first where we concatenate our questions with as much relevant context as possible,
-which is likely to contain the answers or information we are looking for.
-The challenge here, There is a limit on how much contextual information can be used is determined by the token limit of the model.
-This can be overcome by using Retrieval Augmented Generation (RAG)
+### RAG  - Retrieval-Augmented Generation 
+"RAG" in the context of AI often refers to the "Retrieval-Augmented Generation" model. This is a hybrid model that combines retrieval and generation techniques to improve the performance of natural language processing tasks.
+
+The traditional approach to language models involves training them to generate text from scratch based on the input they receive. However, sometimes it's more effective to combine generation with retrieval of existing information. This is where RAG models come in.
+
+RAG models consist of two main components:
+
+**Retrieval Component**: This part of the model retrieves relevant information or passages from a large dataset of text. It's like having a search engine that retrieves relevant snippets of text based on a query.  
+
+**Generation Component**: Once the relevant information is retrieved, the generation component takes over. It generates the final output, incorporating the retrieved information to create coherent and contextually relevant responses.
+
+RAG models are particularly useful for tasks that require a combination of knowledge retrieval and creative generation, such as question answering, content summarization, and more. They leverage the strengths of both techniques to produce high-quality outputs.
 
 ![RAG](52-rag-with-external-data.png)
 
@@ -39,5 +45,6 @@ When you upload files through Jarvis API, Jarvis will do the following:
 ### Prompt with RAG (1+3)
 When jarvis is being asked a question using the prompt API, Jarvis will create a vector from the question 
 and will find for us the most similar vectors in the Postgres DB. only then Jarvis will invoke bedrock model together
-with the docs it found as the context.
+with the docs it found as the context.  
 
+For more information about RAG and vectors jump to [GPO confluence](https://gpo-engineering.atlassian.net/wiki/spaces/~5e2d8e0383d74c0e8217a19f/pages/2917040757/Hackathon-+2023+RAG+and+vectors)
