@@ -347,25 +347,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../privacy/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Privacy
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../chat/" class="md-nav__link">
         
   
@@ -428,6 +409,25 @@
   
   <span class="md-ellipsis">
     API Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../privacy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Privacy
   </span>
   
 
@@ -515,12 +515,12 @@ team . This is your authentication keys, and they should be used by your team an
 </code></pre>
 <p>Now lets go over all the params we had in this http request<br />
 <em> </em><em>question</em><em> - This is the prompt that will be sent to the FM<br />
-</em> <strong>stop_sequences</strong> - @kobi help me<br />
-<em> </em><em>name</em><em> - This is the model id from the - <a href="../bedrock/">Bedrock supported models</a><br />
-</em> <strong>max_tokens</strong> - The maximum tokens that will be in the answer - (1 token equal to 3/4 words)<br />
-<em> </em><em>temperature</em><em> - <a href="https://docs.ai21.com/docs/sampling-from-language-models#%EF%B8%8F-temperature">Read here</a> <br />
-</em> <strong>top_k</strong> - <a href="https://docs.ai21.com/docs/sampling-from-language-models#-topk">Read here</a><br />
-<em> </em><em>top_p</em>* - <a href="https://docs.ai21.com/docs/sampling-from-language-models#-topp">Read here</a>  </p>
+</em> <strong>stop_sequences</strong> - a set of chars that will stop the response from the FM like \n for new line 
+* <strong>name</strong> - This is the model id from the - <a href="../bedrock/">Bedrock supported models</a><br />
+<em> </em><em>max_tokens</em><em> - The maximum tokens that will be in the answer - (1 token equal to 3/4 words)<br />
+</em> <strong>temperature</strong> - <a href="https://docs.ai21.com/docs/sampling-from-language-models#%EF%B8%8F-temperature">Read here</a> <br />
+<em> </em><em>top_k</em><em> - <a href="https://docs.ai21.com/docs/sampling-from-language-models#-topk">Read here</a><br />
+</em> <strong>top_p</strong> - <a href="https://docs.ai21.com/docs/sampling-from-language-models#-topp">Read here</a>  </p>
 <blockquote>
 <p><strong><em>Playing with the request body:</em></strong> different models and different params like temperature, top_k and top_p will give you different answers, play with them and find the right tool for the job.</p>
 </blockquote>
@@ -531,14 +531,14 @@ team . This is your authentication keys, and they should be used by your team an
 --header 'Content-Type: application/json' \
 --data '{
 &quot;question&quot;: &quot;Can you please tell me what is the most pouplar programing language, please provide short answer&quot;,
-&quot;model&quot;: {
-&quot;stop_sequences&quot;: [],
-&quot;name&quot;: &quot;ai21.j2-mid&quot;,
-&quot;max_tokens&quot;: 1000,
-&quot;temperature&quot;: 1,
-&quot;top_k&quot;: 250,
-&quot;top_p&quot;: 0.999
-}
+    &quot;model&quot;: {
+        &quot;stop_sequences&quot;: [],
+        &quot;name&quot;: &quot;ai21.j2-mid&quot;,
+        &quot;max_tokens&quot;: 1000,
+        &quot;temperature&quot;: 1,
+        &quot;top_k&quot;: 250,
+        &quot;top_p&quot;: 0.999
+    }
 }'
 </code></pre>
 <p>and this is the answer you will get:</p>
