@@ -1,0 +1,17 @@
+site_name: Jarvis
+plugins:
+  - search
+
+theme:
+  name: material
+
+nav:
+  - Intro: index.md
+  - Bedrock: bedrock.md
+  - Zero shot prompt: simple.md
+  - RAG: RAG.md
+  - Loading Documents: loading.md
+  - Prompts with RAG Pattern: prompt-context.md
+  - Privacy: privacy.md
+  - Team Onboarding: creds.md
+  - API Reference: api.md
