@@ -13,5 +13,7 @@ nav:
   - Loading Documents: loading.md
   - Prompts with RAG Pattern: prompt-context.md
   - Privacy: privacy.md
+  - Chat: chat.md
+  - Working with CSV: csv.md
   - Team Onboarding: creds.md
   - API Reference: api.md

@@ -101,8 +101,83 @@ This will be our response
 }
 ```
 
-as mentioned above, we will the source_documeants in the response to help us debug why we got the answer we got and an answer to our question.
+as mentioned above, we will get the source_documeants in the response to help us debug why we got the answer we got and an answer to our question.
 
+### Prompt Template
+One of the features many FM supports is sending instructions to the model to answer your questions.  
+Most of you saw chatGPT prompts that asks for a brief answer as a pirate.
+While we can send these instructions to the FM we are working with, this instructions will go to RAG pattern
+as well as they are part of the questions and will affect the vectors that are found.
 
+To solve this we are happy to introduce the prompt_template:  
 
+see this request for example:
 
+```json
+curl --location 'https://api.paymentsos.com/hackathon-ai/prompt' \
+--header 'private-key: replaceme' \
+--header 'app-id: replaceme' \
+--header 'Content-Type: application/json' \
+--data '{
+    "prompt_template": "Answer the following questions as best you can, but speaking as a pirate might speak. Use lots of \"Arg\"s.\nBegin\n\nHuman: {question}\n\nContext: {context}\n\nAssistant:",
+    "question": "What are the reasons a debezium connector loses its binlog offset?",
+    "model": {
+        "stop_sequences": [],
+        "name": "anthropic.claude-v2",
+        "max_tokens": 200,
+        "temperature": 0.3,
+        "top_k": 250,
+        "top_p": 0.9
+    },
+    "rag": {
+        "return_source_documents": true,
+        "search_type": "similarity",
+        "k": 5,
+        "collection": "hackathon"
+    }
+}'
+```  
+And the response:
+
+```json
+{
+    "question": "What are the reasons a debezium connector loses its binlog offset?",
+    "result": " Arr matey, there be a few reasons a Debezium connector could be losin' its place in the binlog:\n\nFirst, if the MySQL server be restarted, that wipes the binlog clean and the connector won't know where it left off. So you gotta be careful not to restart the server if ye can help it, else the connector will start over from the beginning.\n\nSecond, network issues can cause the connector to lose its connection. If it can't keep talkin' to the MySQL server, it may miss some binlog events and lose track of the latest position. \n\nAnd third, sometimes the connector offset gets out o' sync if Debezium's heartbeat don't match up with the actual binlog position. That's why it be important to keep an eye on both and make sure they line up proper.\n\nBut don't be despairin'! There be ways to make sure your connector don't lose",
+}
+```
+
+And if we take it more seriously, lets try this:  
+
+```json
+curl --location 'https://api.paymentsos.com/hackathon-ai/prompt' \
+--header 'private-key: a4b90687-616f-4173-9774-af3cc6bd86bc' \
+--header 'private-key: replaceme' \
+--header 'app-id: replaceme' \
+--header 'Content-Type: application/json' \
+--data '{
+    "prompt_template": "Answer the  briefly in bullets and as you were a sales person.\nBegin\n\nHuman: {question}\n\nContext: {context}\n\nAssistant:",
+    "question": "What are the reasons a debezium connector loses its binlog offset?",
+    "model": {
+        "stop_sequences": [],
+        "name": "anthropic.claude-v2",
+        "max_tokens": 1000,
+        "temperature": 0.3,
+        "top_k": 250,
+        "top_p": 0.9
+    },
+    "rag": {
+        "return_source_documents": true,
+        "search_type": "similarity",
+        "k": 5,
+        "collection": "hackathon"
+    }
+}'
+```
+
+we will get this
+
+```json
+{
+    "question": "What are the reasons a debezium connector loses its binlog offset?",
+    "result": " Here are some common reasons a Debezium connector can lose its binlog offset:\n\n- MySQL server is restarted - This causes the binlog to be rotated, so the connector loses its place\n\n- Connector is stopped for too long - If the connector is down for longer than the MySQL binary log expiration period, the logs it needs may be deleted\n\n- Heartbeat configuration issue - If heartbeats are not configured properly, the connector may not be updating its offset frequently enough\n\n- Kafka retention issues - If Kafka is not retaining the offset topic long enough, offset messages may be deleted \n\n- Connector configuration error - An error in the connector configuration, such as the database or table whitelist, can cause offset issues\n\n- MySQL GTID mode not enabled - Debezium requires GTID mode to accurately track binlog positions \n\n- DB snapshot followed by purge - If a snapshot is followed by a BINLOG PURGE, the connector's recorded offset may be purged\n\n- DB admin intervention - An admin may have manually purged logs, inadvertently deleting offsets \n\n- Kafka Connect rebalance - Offsets may not be committed properly during a Connect cluster rebalance\n\nSo in summary - restarting MySQL, long connector downtime, Kafka retention, Connect errors, and admin actions on the db can all lead to lost offsets. Proper connector setup and config can mitigate many issues.",}
+```
