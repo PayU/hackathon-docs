@@ -496,8 +496,8 @@ and provide them as context to the FM.</p>
 <p>in the rag object we have:<br />
 <em> return_source_documents - if this is true, the response will contain the vectors that that Jarvis found as the closest one 
 to the question and passed them as context to the model. this is useful for debugging and tuning our use of the models.<br />
-</em> search_type - need to update<br />
-* k - how many vectors should be retrieved from db 
+</em> search_type - see API reference for the options.
+* k - how many vectors should be retrieved from db.
 * collection - on which collection of documents look for the vectors - this must be same collection where doc was loaded.</p>
 <pre><code class="language-json">curl --location 'https://api.paymentsos.com/hackathon-ai/prompt' \
 --header 'private-key: a4b90687-616f-4173-9774-af3cc6bd86bc' \
