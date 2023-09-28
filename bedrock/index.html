@@ -512,10 +512,10 @@
 
 <h2 id="bedrock">Bedrock</h2>
 <p>Bedrock is a new service that as of writing this line (25.9.23) is still in beta stage and not available to AWS customers.</p>
-<p>Bedrock is a product by AWS that Accelerates development of generative AI applications using FMs through an API, without managing infrastructure.
+<p>Bedrock is a product by AWS that accelerates development of generative AI applications using FMs through an API, without managing infrastructure.
 Currently, Bedrock provides access to foundation model from Anthropic, AI21, AWS Titan family and Stability AI.
 Bedrock also enables us to privately customize FMs using our organization's data.</p>
-<p>In the hackathon, we choose to expose those foundation model through Jarvis.</p>
+<p>In the hackathon, we chose to expose those foundation models through Jarvis.</p>
 <table>
 <thead>
 <tr>
@@ -564,17 +564,16 @@ Bedrock also enables us to privately customize FMs using our organization's data
 </tr>
 </tbody>
 </table>
-<p>As you can see, each model has different size of tokens and different use, you may need to play with your 
+<p>As you can see, each model has different token size and they fit a different usecase; you may need to play with your 
 hackathon product to find the right model for the job.
-When using the API, you will be able to change the FM that in use by playing with the model_id.</p>
+When using the API, you will be able to change the FM that is in use by playing with the model_id.</p>
 <blockquote>
 <p><strong><em>NOTE:</em></strong> 1 token is equal to 3/4 of a word or 4 chars
 .</p>
 </blockquote>
 <h3 id="why-bedrock-and-not-chatgpt">Why Bedrock and not chatGPT?</h3>
 <p>One of the biggest advantages of bedrock over other foundation models as chatGPT or Bard is that
-Bedrock allows us to access to multiple foundation model as noted above but not only that, it allows us to use our private data
-as context to the foundation model. more about this on the RAG part.</p>
+Bedrock allows us to access to multiple foundation models as noted above. Moreover, the most critical aspect that gave Bedrock winning edge is that it allows us to use our private data as context to the foundation model. More info on this can be found in the RAG part.</p>
 
 
 
