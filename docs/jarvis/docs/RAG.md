@@ -1,9 +1,9 @@
 ## RAG Pattern
 
-While zero-shot is a nice and give you a good head start, the biggest benefit of using Jarvis on top of Bedrock is
-Jarvis ability to use embeddings and the RAG pattern.
+While zero-shot is nice and can give you a good head start, the biggest benefit of using Jarvis on top of Bedrock is
+Jarvis' ability to use embeddings and the RAG pattern.
 
-So far what we went on the zero shot part is asking a question, while you can also provide some document text in the prompt.
+So far what we used zero shot part to ask a simple question, but we can further its capabilities by providing a text document in the prompt.
 
 ![Zero shot with Context](51-simple-rag.png)
 
