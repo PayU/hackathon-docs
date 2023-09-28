@@ -3,10 +3,10 @@
 
 > **_Zero-Shot Prompting:_** If you’ve interacted with an LLM-powered chatbot before, you’ve likely already used zero-shot prompting unwittingly. Zero-shot prompting entails relying solely on an LLM’s pre-trained information to answer a given user prompt.
 
-to create your first request to Jarvis you will need a private-key and app-id that will be provided by the hackathon
-team . This is your authentication keys, and they should be used by your team and remain private.
+To create your first request to Jarvis you will need a private-key and an app-id that will be provided by the hackathon
+team. This are your authentication keys, and they should be used by your team and remain private.
 
-A simple zero shot prompt to jarvis would look like this:
+An example of a simple zero shot prompt to jarvis looks like this:
 
 
 ```json
@@ -37,7 +37,7 @@ and this is the answer you will get:
 
 Now lets go over all the params we had in this http request  
 * **question** - This is the prompt that will be sent to the FM  
-* **stop_sequences** - a set of chars that will stop the response from the FM like \n for new line 
+* **stop_sequences** - A set of chars that will stop the response from the FM like \n for new line 
 * **name** - This is the model id from the - [Bedrock supported models](./bedrock.md)  
 * **max_tokens** - The maximum tokens that will be in the answer - (1 token equal to 3/4 words)  
 * **temperature** - [Read here](https://docs.ai21.com/docs/sampling-from-language-models#%EF%B8%8F-temperature)   
@@ -75,4 +75,4 @@ and this is the answer you will get:
 }
 ```
 
-As you can see different models trained and tuned on different data and can return various responses. 
+As you can see different models trained and tuned on different sets of data can return various responses. 
