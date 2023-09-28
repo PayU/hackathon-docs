@@ -64,6 +64,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#chat-rag" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -306,6 +311,17 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Chat
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -315,6 +331,30 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chat-rag" class="md-nav__link">
+    Chat &amp; RAG
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -414,6 +454,21 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chat-rag" class="md-nav__link">
+    Chat &amp; RAG
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -429,7 +484,122 @@
 
   <h1>Chat</h1>
 
-
+<h2 id="chat-rag">Chat &amp; RAG</h2>
+<p>In the preceding section, we covered prompts with RAG.</p>
+<p>Now, let's explore how the Jarvis API can be utilized for chatting with RAG in this section.</p>
+<blockquote>
+<p><em>NOTE:</em>  Chat is supported for anthropic.claude-v2 model only</p>
+</blockquote>
+<p>Through the website loader, we uploaded two distinct blog posts. One of these posts dived into debeizum, a CDC tool that is widely used in GPO engineering.<br />
+The FM are stateless and don't know anything about the previous question we send them.
+Jarvis adds this functionality by persisting the previous questions and passing them to the model once again on every new question being asked.</p>
+<p>The structure of the chat object is as follows:</p>
+<pre><code class="language-json"> &quot;chat&quot;: {
+    &quot;conversation_id&quot;: &quot;21389712387&quot;, // The conversation_id to based on when asking the question
+    &quot;k_history&quot;: 10, // The k last history messages (request&amp;answer) to send to the model as part of the context
+    &quot;return_history&quot;: true, // Return the history messages used for answer from the LLM in the response
+    &quot;rephrase_question&quot;: false // Whether to use LLM to rephrase the question based on the history before trying to retrieve documents
+}
+</code></pre>
+<p>Let's start our chat about that article that was written after the FM finished its training</p>
+<pre><code class="language-json">curl --location --request POST 'https://api.paymentsos.com/hackathon-ai/chat' \
+--header 'private-key: replaceme' \
+--header 'app-id: replaceme' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    &quot;question&quot;: &quot;What are the reasons a debezium connector loses its binlog offset?&quot;,
+    &quot;model&quot;: {
+        &quot;stop_sequences&quot;: [],
+        &quot;name&quot;: &quot;anthropic.claude-v2&quot;,
+        &quot;max_tokens&quot;: 5000,
+        &quot;temperature&quot;: 0.3,
+        &quot;top_k&quot;: 250,
+        &quot;top_p&quot;: 0.9
+     },
+    &quot;rag&quot;: {
+        &quot;search_type&quot;: &quot;similarity&quot;,
+        &quot;k&quot;: 5,
+        &quot;collection&quot;: &quot;hackathon&quot;,
+        &quot;return_source_documents&quot;: false
+      },
+    &quot;chat&quot;: {
+        &quot;conversation_id&quot;: &quot;222222222222&quot;,
+        &quot;k_history&quot;: 10,
+        &quot;return_history&quot;: true,
+        &quot;rephrase_question&quot;: false
+      }
+    }'
+</code></pre>
+<p>And the result will be:</p>
+<pre><code class="language-json">{
+  &quot;question&quot;: &quot;What are the reasons a debezium connector loses its binlog offset?&quot;,
+  &quot;result&quot;: &quot; Based on the context provided, there are a few potential reasons a Debezium connector can lose its binlog offset:\n\n- The connector was down for an extended period of time, during which the MySQL binlog rotated. When the connector comes back up, it tries to resume from its last recorded offset, but that offset no longer exists in the current binlog.\n\n- The connector's configuration does not have heartbeat messages enabled. Heartbeat messages periodically store the connector's latest offset, protecting against offset loss on connector restart.\n\n- There is a misconfiguration or bug that causes the connector to not properly store its latest offset in Kafka. This can lead to the offset being lost when the connector is restarted.\n\n- If Kafka offsets topic retention is too short, offset messages can be deleted before the connector has a chance to resume from them.\n\nSo in summary, the main reasons are binlog rotation during an outage, lack of heartbeat messages, improper offset storage, and short retention of offset messages. Enabling heartbeat messages and configuring appropriate retention is key to avoiding offset loss.&quot;,
+  &quot;source_documents&quot;: null,
+  &quot;chat_history&quot;: []
+}
+</code></pre>
+<p>Now, let's ask another question using what we learned from the first one:</p>
+<pre><code class="language-json">curl --location --request POST 'https://api.paymentsos.com/hackathon-ai/chat' \
+--header 'private-key: replaceme' \
+--header 'app-id: replaceme' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  &quot;question&quot;: &quot;How can i solve the first potential reason?&quot;,
+    &quot;model&quot;: {
+        &quot;stop_sequences&quot;: [],
+        &quot;name&quot;: &quot;anthropic.claude-v2&quot;,
+        &quot;max_tokens&quot;: 5000,
+        &quot;temperature&quot;: 0.3,
+        &quot;top_k&quot;: 250,
+        &quot;top_p&quot;: 0.9
+    },
+    &quot;rag&quot;: {
+        &quot;search_type&quot;: &quot;similarity&quot;,
+        &quot;k&quot;: 5,
+        &quot;collection&quot;: &quot;hackathon&quot;,
+        &quot;return_source_documents&quot;: false
+    },
+    &quot;chat&quot;: {
+        &quot;conversation_id&quot;: &quot;222222222222&quot;,
+        &quot;k_history&quot;: 10,
+        &quot;return_history&quot;: true,
+        &quot;rephrase_question&quot;: false
+    }
+}'
+</code></pre>
+<p>And the answer is:</p>
+<pre><code class="language-json">{
+  &quot;question&quot;: &quot;How can i solve the first potential reasons?&quot;,
+  &quot;result&quot;: &quot; Based on the context provided, here are a few potential ways to solve the issue of a Debezium connector losing its binlog offset due to binlog rotation:\n\n1. Increase the binlog retention period in MySQL to be longer than the maximum expected downtime. This will ensure the binlog containing the connector's last offset is still available when the connector restarts.\n\n2. Configure the connector to also capture changes from a heartbeat table. This will update the connector's offset regularly even if there are no changes to the main table being captured. \n\n3. When restarting the connector after downtime, manually provide the last known good offset the connector had before going down. This can be obtained from the Kafka offsets topic.\n\n4. Use MySQL GTIDs to track replication positions instead of binlog offsets. GTIDs are persisted in MySQL and not subject to rotation.\n\n5. Set up MySQL replication from the primary to a secondary and have the connector read the binlogs from the secondary instead. This prevents binlog rotation from affecting the connector.\n\n6. Increase the frequency of connector offset flushing to Kafka to minimize potential data loss in case of failure.\n\nThe key is to ensure the connector's last known offset is still available or can be reconstructed after any downtime event. Let me know if you need any clarification or have additional questions!&quot;,
+  &quot;source_documents&quot;: null,
+  &quot;chat_history&quot;: [
+    {
+      &quot;content&quot;: &quot;What are the reasons a debezium connector loses its binlog offset?&quot;,
+      &quot;additional_kwargs&quot;: {},
+      &quot;example&quot;: false
+    },
+    {
+      &quot;content&quot;: &quot; Based on the context provided, there are a few potential reasons a Debezium connector can lose its binlog offset:\n\n- The connector was down for an extended period of time, during which the MySQL binlog rotated. When the connector comes back up, it tries to resume from its last recorded offset, but that offset no longer exists in the current binlog.\n\n- The connector's configuration does not have heartbeat messages enabled. Heartbeat messages periodically store the connector's latest offset, protecting against offset loss on connector restart.\n\n- There is a misconfiguration or bug that causes the connector to not properly store its latest offset in Kafka. This can lead to the offset being lost when the connector is restarted.\n\n- If Kafka offsets topic retention is too short, offset messages can be deleted before the connector has a chance to resume from them.\n\nSo in summary, the main reasons are binlog rotation during an outage, lack of heartbeat messages, improper offset storage, and short retention of offset messages. Enabling heartbeat messages and configuring appropriate retention is key to avoiding offset loss.&quot;,
+      &quot;additional_kwargs&quot;: {},
+      &quot;example&quot;: false
+    }
+  ]
+}
+</code></pre>
+<p>We observe that the chat history, which was utilized to feed the LLM, returns in the response under "chat_history."</p>
+<pre><code class="language-json">&quot;chat_history&quot;: [
+{
+    &quot;content&quot;: &quot;What are the reasons a debezium connector loses its binlog offset?&quot;,
+    &quot;additional_kwargs&quot;: {},
+    &quot;example&quot;: false
+},
+{
+    &quot;content&quot;: &quot; Based on the context provided, there are a few potential reasons a Debezium connector can lose its binlog offset:\n\n- The connector was down for an extended period of time, during which the MySQL binlog rotated. When the connector comes back up, it tries to resume from its last recorded offset, but that offset no longer exists in the current binlog.\n\n- The connector's configuration does not have heartbeat messages enabled. Heartbeat messages periodically store the connector's latest offset, protecting against offset loss on connector restart.\n\n- There is a misconfiguration or bug that causes the connector to not properly store its latest offset in Kafka. This can lead to the offset being lost when the connector is restarted.\n\n- If Kafka offsets topic retention is too short, offset messages can be deleted before the connector has a chance to resume from them.\n\nSo in summary, the main reasons are binlog rotation during an outage, lack of heartbeat messages, improper offset storage, and short retention of offset messages. Enabling heartbeat messages and configuring appropriate retention is key to avoiding offset loss.&quot;,
+    &quot;additional_kwargs&quot;: {},
+    &quot;example&quot;: false
+}
+]
+</code></pre>
 
 
 
