@@ -4,7 +4,7 @@ Jarvis supports loading documents from 3 data sources:
 3. **Webpages**  
 
 ### SFTP
-Your team will not only receive a private-key and app-id for the API, but it will also receive a credentials to use SFTP server.  
+Your team will not only receive a private-key and app-id for the API, but it will also receive a set of credentials to use the SFTP server.  
 * Private key  
 * Username  
 * Password  
@@ -41,8 +41,8 @@ curl --location 'https://api.paymentsos.com/hackathon-ai/load' \
 }'
 ```
 
-After a successful response, those file that we loaded will exist in jarvis, and we will be able to  ask question about them.
-more on that on the next chapter.
+After a successful response, those file that we loaded will exist in Jarvis, and we will be able to ask question about them.
+More on that on the next chapter.
 
 > **_collection:_** By choosing different collection in the API you can isolate different docs, you will be able to
 > specify the collection on your prompts
@@ -50,7 +50,7 @@ more on that on the next chapter.
 ### Confluence
 
 Jarvis is also directly integrated to our confluence (https://gpo-engineering.atlassian.net/wiki)  
-You can use Jarvis API to stream confluence pages and space in one API call
+You can use Jarvis API to stream confluence pages and space in one API call.
 
 in this example we will publish the whole space but limit to 20 pages
 
@@ -86,7 +86,7 @@ curl --location 'https://api.paymentsos.com/hackathon-ai/load' \
 ```
 
 > **_NOTE:_** Uploading multiple pages from confluence can take some time, and you may get a timeout,
-> we suggest starting with limited number of page_ids. at any case, if there is a timeout from the client, Jarvis will
+> we suggest starting with limited number of page_ids. At any case, if there is a timeout from the client, Jarvis will
 > continue uploading the files.
 
 
