@@ -45,8 +45,7 @@ curl --location --request POST 'https://api.paymentsos.com/hackathon-ai/chat' \
     "chat": {
         "conversation_id": "222222222222",
         "k_history": 10,
-        "return_history": true,
-        "rephrase_question": false
+        "return_history": true
       }
     }'
 ```
@@ -87,9 +86,7 @@ curl --location --request POST 'https://api.paymentsos.com/hackathon-ai/chat' \
     "chat": {
         "conversation_id": "222222222222",
         "k_history": 10,
-        "return_history": true,
-        "rephrase_question": false
-    }
+        "return_history": true
 }'
 ```
 
