@@ -1,24 +1,26 @@
-In the previous chapter we talked about how we can load Jarvis with documents from different sources.  
-Now lets see how we can use the Jarvis API to ask question about these docs.
+### Using RAG
+
+We discussed how to load Jarvis with documents from different sources in the previous chapter.
+Let's see how we can use Jarvis API to ask questions about these documents.
 
 
-Let's start from our last example, we uploaded two different blog posts using the website loader.
-One of the blog post was about debeizum - a CDC tool that is being used in GPO engineering. 
+Using the website loader, we uploaded two different blog posts.
+One of the blog posts discussed debeizum, a CDC tool used in GPO engineering.
 
-let's try to ask a question about that article that was written after the FM finished it's training
+Let's ask a question about that article that was written after the FM finished its training
 
-We will send a question that is very similar to the questions we send on the zero shot part, the difference in this
-request is that it includes an object called the "**rag**"  
-When specifying the rag object, Jarvis understand as it should take the query and first find the closest vectors to the question
-and provide them as context to the FM.
 
-in the rag object we have:  
-* **return_source_documents** - if this is true, the response will contain the vectors that that Jarvis found as the closest one 
-to the question and passed them as context to the model. this is useful for debugging and tuning our use of the models.  
-* **search_type** - see API reference for the options.
-* **k** - how many vectors should be retrieved from db.
-* collection - on which collection of documents look for the vectors - this must be same collection where doc was loaded.
+The API using RAG is similar to the previous used API with zero shot, the difference is the addition of the rag object.
 
+```json
+
+{
+ "return_source_documents": true, //if true response will contain the docs that the answer is based on
+ "search_type": "similarity", // see API reference for the options.
+ "k": 5, // how many vectors should be retrieved from the db.
+ "collection": "hackathon" //on which collection of documents look for the vectors - this must be the same collection where doc was loaded.
+}
+```
 
 ```json
 curl --location 'https://api.paymentsos.com/hackathon-ai/prompt' \
