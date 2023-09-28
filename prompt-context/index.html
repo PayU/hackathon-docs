@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#prompt-template" class="md-skip">
+        <a href="#using-rag" class="md-skip">
           Skip to content
         </a>
       
@@ -327,6 +327,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#using-rag" class="md-nav__link">
+    Using RAG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#prompt-template" class="md-nav__link">
     Prompt Template
   </a>
@@ -461,6 +468,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#using-rag" class="md-nav__link">
+    Using RAG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#prompt-template" class="md-nav__link">
     Prompt Template
   </a>
@@ -484,21 +498,21 @@
 
   <h1>Prompts with RAG Pattern</h1>
 
-<p>In the previous chapter we talked about how we can load Jarvis with documents from different sources.<br />
-Now lets see how we can use the Jarvis API to ask question about these docs.</p>
-<p>Let's start from our last example, we uploaded two different blog posts using the website loader.
-One of the blog post was about debeizum - a CDC tool that is being used in GPO engineering. </p>
-<p>let's try to ask a question about that article that was written after the FM finished it's training</p>
-<p>We will send a question that is very similar to the questions we send on the zero shot part, the difference in this
-request is that it includes an object called the "<strong>rag</strong>"<br />
-When specifying the rag object, Jarvis understand as it should take the query and first find the closest vectors to the question
-and provide them as context to the FM.</p>
-<p>in the rag object we have:<br />
-<em> </em><em>return_source_documents</em><em> - if this is true, the response will contain the vectors that that Jarvis found as the closest one 
-to the question and passed them as context to the model. this is useful for debugging and tuning our use of the models.<br />
-</em> <strong>search_type</strong> - see API reference for the options.
-* <strong>k</strong> - how many vectors should be retrieved from db.
-* collection - on which collection of documents look for the vectors - this must be same collection where doc was loaded.</p>
+<h3 id="using-rag">Using RAG</h3>
+<p>We discussed how to load Jarvis with documents from different sources in the previous chapter.
+Let's see how we can use Jarvis API to ask questions about these documents.</p>
+<p>Using the website loader, we uploaded two different blog posts.
+One of the blog posts discussed debeizum, a CDC tool used in GPO engineering.</p>
+<p>Let's ask a question about that article that was written after the FM finished its training</p>
+<p>The API using RAG is similar to the previous used API with zero shot, the difference is the addition of the rag object.</p>
+<pre><code class="language-json">
+{
+ &quot;return_source_documents&quot;: true, //if true response will contain the docs that the answer is based on
+ &quot;search_type&quot;: &quot;similarity&quot;, // see API reference for the options.
+ &quot;k&quot;: 5, // how many vectors should be retrieved from the db.
+ &quot;collection&quot;: &quot;hackathon&quot; //on which collection of documents look for the vectors - this must be the same collection where doc was loaded.
+}
+</code></pre>
 <pre><code class="language-json">curl --location 'https://api.paymentsos.com/hackathon-ai/prompt' \
 --header 'private-key: a4b90687-616f-4173-9774-af3cc6bd86bc' \
 --header 'app-id: com.payu.3ds-latam-brazil' \
