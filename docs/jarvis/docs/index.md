@@ -20,4 +20,4 @@ Jarvis supports 3 types of functionalities:
 In addition to that, Jarvis supports the upload of private GPO data that will be stored safely on the GPO AWS account
 and will be enabled to receive queries (RAG + Chat)
 
-More information about these APIs and how to upload private data in this documentation site.
+More information about these APIs and how to upload private data can be found in this documentation site.
