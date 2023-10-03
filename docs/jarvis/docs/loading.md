@@ -44,6 +44,8 @@ curl --location 'https://api.paymentsos.com/hackathon-ai/load' \
 After a successful response, those file that we loaded will exist in Jarvis, and we will be able to ask question about them.
 More on that on the next chapter.
 
+> **_supported file types:_** the supported file types are: pdf, csv, docx, xlsx, pptx, md, tsx, txt
+
 > **_collection:_** By choosing different collection in the API you can isolate different docs, you will be able to
 > specify the collection on your prompts
 
