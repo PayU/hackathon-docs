@@ -582,7 +582,7 @@ specify the collection on your prompts</p>
 <h3 id="confluence">Confluence</h3>
 <p>Jarvis is also directly integrated to our confluence (https://gpo-engineering.atlassian.net/wiki)<br />
 You can use Jarvis API to stream confluence pages and space in one API call.</p>
-<p>in this example we will publish the whole space but limit to 20 pages</p>
+<p>in this example we will choose to load specific page ids from confluence</p>
 <pre><code class="language-json">curl --location 'https://api.paymentsos.com/hackathon-ai/load' \
 --header 'private-key: replaceme' \
 --header 'app-id: replaceme' \
@@ -590,21 +590,6 @@ You can use Jarvis API to stream confluence pages and space in one API call.</p>
 --data '{
     &quot;loader&quot;: {
         &quot;type&quot;: &quot;confluence&quot;,
-        &quot;space&quot;: &quot;HUB&quot;,
-        &quot;max_pages&quot;: 20
-    },
-    &quot;collection&quot;: &quot;confluence&quot;
-}'
-</code></pre>
-<p>and in this example we will choose to load only specific page ids from confluence</p>
-<pre><code class="language-json">curl --location 'https://api.paymentsos.com/hackathon-ai/load' \
---header 'private-key: replaceme' \
---header 'app-id: replaceme' \
---header 'Content-Type: application/json' \
---data '{
-    &quot;loader&quot;: {
-        &quot;type&quot;: &quot;confluence&quot;,
-        &quot;space&quot;: &quot;HUB&quot;,
         &quot;page_ids&quot;: [&quot;114327634&quot;, &quot;830275595&quot;]
     },
     &quot;collection&quot;: &quot;confluence&quot;

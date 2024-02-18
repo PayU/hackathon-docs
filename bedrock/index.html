@@ -523,44 +523,67 @@ Bedrock also enables us to privately customize FMs using our organization's data
 <th>Max Tokens</th>
 <th>Model Id</th>
 <th>Notes</th>
+<th>Use Cases</th>
 <th>Classification</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td>Claude v2.1</td>
+<td>20k</td>
+<td>anthropic.claude-v2.1</td>
+<td>An update to Claude 2 that features double the context window, plus improvements across reliability, hallucination rates, and evidence-based accuracy in long document and RAG contexts.</td>
+<td>Question answering, information extraction, removing PII, content generation, multiple choice classification, Roleplay, comparing text, summarization, document Q&A with citation</td>
+<td>Text generation, Conversation, Complex reasoning & analysis</td>
+</tr>
+<tr>
 <td>Claude v2</td>
-<td>12k</td>
+<td>20k</td>
 <td>anthropic.claude-v2</td>
 <td>Anthropic's most powerful model, which excels at a wide range of tasks from sophisticated dialogue and creative content generation to detailed instruction following.</td>
-<td>Text generation, Conversational</td>
+<td>Same as Claude v2.1</td>
+<td>Text generation, Conversation, Complex reasoning & analysis</td>
 </tr>
 <tr>
-<td>Claude Instant   v1.1</td>
-<td>9k</td>
+<td>Claude Instant v1</td>
+<td>20k</td>
 <td>anthropic.claude-instant-v1</td>
 <td>A faster and cheaper yet still very capable model, which can handle a range of tasks including casual dialogue, text analysis, summarization, and document question-answering.</td>
+<td>Same as Claude v2.1</td>
 <td>Text generation, Conversational</td>
-</tr>
-<tr>
-<td>Jurassic-2 Mid</td>
-<td>8k</td>
-<td>ai21.j2-mid-v1</td>
-<td>Jurassic-2 Mid is AI21’s mid-sized model, carefully designed to strike the right balance between exceptional quality and affordability. Jurassic-2 Mid can be applied to any language comprehension or generation task including question answering, summarization, long-form copy generation, advanced information extraction and many others.</td>
-<td>Text, Classification, Insert/edit, Math</td>
 </tr>
 <tr>
 <td>Jurassic-2 Ultra</td>
 <td>8k</td>
 <td>ai21.j2-ultra-v1</td>
 <td>Jurassic-2 Ultra is AI21’s most powerful model offering exceptional quality. Apply Jurassic-2 Ultra to complex tasks that require advanced text generation and comprehension. Popular use cases include question answering, summarization, long-form copy generation, advanced information extraction, and more.</td>
+<td>Open book question answering, summarization, draft generation, information extraction, ideation</td>
 <td>Text, Classification, Insert/edit</td>
 </tr>
 <tr>
-<td>Titan Text Large</td>
+<td>Jurassic-2 Mid</td>
+<td>8k</td>
+<td>ai21.j2-mid-v1</td>
+<td>Jurassic-2 Mid is AI21’s mid-sized model, carefully designed to strike the right balance between exceptional quality and affordability. Jurassic-2 Mid can be applied to any language comprehension or generation task including question answering, summarization, long-form copy generation, advanced information extraction and many others.</td>
+<td>Open book question answering, summarization, draft generation, information extraction, ideation</td>
+<td>Text, Classification, Insert/edit, Math</td>
+</tr>
+<tr>
+<td>Titan Text Express</td>
 <td>8k</td>
 <td>amazon.titan-text-express-v1</td>
-<td>Titan Text is a generative large language model (LLM) for tasks such as summarization, text generation (for example, creating a blog post), classification, open-ended Q&amp;A, and information extraction.</td>
+<td>Amazon Titan Text Express has a context length of up to 8,000 tokens, making it well-suited for a wide range of advanced, general language tasks such as open-ended text generation and conversational chat, as well as support within Retrieval Augmented Generation (RAG). At launch, the model is optimized for English, with multilingual support for more than 100 additional languages available in preview.</td>
+<td>Text generation, Code generation, Rich text formatting, Orchestration (Agents), Fine Tuning</td>
 <td>Text generation, Code generation, Instruction following</td>
+</tr>
+</tbody>
+<tr>
+<td>Titan Text Lite</td>
+<td>4k</td>
+<td>amazon.titan-text-lite-v1</td>
+<td>Amazon Titan Text Lite is a light weight efficient model ideal for fine-tuning for English-language tasks, including like summarization and copywriting, where customers want a smaller, more cost-effective model that is also highly customizable.</td>
+<td>Text generation, Code generation, Rich text formatting, Orchestration (Agents), Fine Tuning</td>
+<td>Fine Tuning, Text generation, Code generation, Rich text formatting</td>
 </tr>
 </tbody>
 </table>
